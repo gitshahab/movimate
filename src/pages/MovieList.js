@@ -19,7 +19,7 @@ export const MovieList = ({apiPath, pageNum, setPageNum, title}) => {
     };
 
     if (error) {
-        return <div><PageNotFound msg={`Error: ${error}`} img={ErrorImg} /></div>
+        return <div><PageNotFound msg={`Error: ${error}. Try Again!`} img={ErrorImg} /></div>
     }
 
   return (
