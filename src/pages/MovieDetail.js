@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DefaultImage from "../assets/default-movie-background.jpg"
 import { PageNotFound } from "./PageNotFound";
-import LoadingImg from "../assets/loading.svg";
 import ErrorImg from "../assets/network-error.svg";
+import { MovDetailSkeleton } from "./MovDetailSkeleton";
 
 export const MovieDetail = () => {
   const [ movie, setMovie ] = useState([]);
@@ -34,9 +34,6 @@ export const MovieDetail = () => {
     fetchMovie();
   }, [params.id])
 
-  if (loading) {
-    return <div><PageNotFound msg="Loading...." img={LoadingImg} /></div>
-  }
 
   if (error) {
     return <div><PageNotFound msg={`Error: ${error}`} img={ErrorImg} /></div>
@@ -45,7 +42,9 @@ export const MovieDetail = () => {
 
   return (
     <main>
-      <section className="flex justify-center my-7 ">
+      {loading ? (<MovDetailSkeleton/>) : (
+        <div>
+        <section className="flex justify-center my-7 ">
         <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800">
           <img className="object-cover w-full rounded-t-lg h-full md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={image} alt="poster" />
           <div className="flex flex-col justify-between p-4 leading-normal">
@@ -86,6 +85,8 @@ export const MovieDetail = () => {
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{movie.overview}</p>
         </div>
       </section>
+      </div>
+      )}
     </main>
   )
 }
