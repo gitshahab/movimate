@@ -3,9 +3,9 @@ import { Card } from '../components';
 import { useFetch } from '../hooks/useFetch';
 import { PageNotFound } from './PageNotFound';
 import ResultNotFound from "../assets/result-not-found.png";
-import Loading from "../assets/loading.svg";
 import ErrorImg from "../assets/network-error.svg";
 import { useEffect } from 'react';
+import { SkeletonPage } from './SkeletonPage';
 
 export const Search = ({apiPath}) => {
     const [searchParams] = useSearchParams();
@@ -16,10 +16,6 @@ export const Search = ({apiPath}) => {
     useEffect(() => {
         document.title = `Search Result for ${queryTerm}/Movimate`;
     });
-
-    if (loading) {
-        return <div><PageNotFound msg="Loading...." img={Loading} /></div>
-    }
 
     if (error) {
         return <div><PageNotFound msg={`Error: ${error}`} img={ErrorImg} /></div>
@@ -34,9 +30,10 @@ export const Search = ({apiPath}) => {
         </section>
         <section className='max-w-7xl mx-auto py-7'>
             <div className='flex justify-center flex-wrap'>
-                { movies.map((movie) => (
+                { loading ? (<SkeletonPage/>) : ( movies.map((movie) => (
                     <Card key={movie.id} movie={movie} />
-                ))}
+                ))
+                )}
             </div>
         </section>
     </main>

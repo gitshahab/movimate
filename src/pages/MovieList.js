@@ -1,7 +1,5 @@
 import { Card, NextPage } from '../components';
 import { useFetch } from '../hooks/useFetch';
-import { PageNotFound } from './PageNotFound';
-import ErrorImg from "../assets/network-error.svg";
 import { useEffect } from 'react';
 import { SkeletonPage } from './SkeletonPage';
 
@@ -19,7 +17,13 @@ export const MovieList = ({apiPath, pageNum, setPageNum, title}) => {
     };
 
     if (error) {
-        return <div><PageNotFound msg={`Error: ${error}. Try Again!`} img={ErrorImg} /></div>
+        return (
+            <div className='flex flex-col justify-center items-center h-screen'>
+                <h1 className='font-medium text-2xl text-gray-800 dark:text-gray-400'>Oops! The TMDB API is currently unavailable.</h1>
+                <h3 className='font-medium text-xl text-gray-800 dark:text-gray-400'>Please try again later.</h3>
+            </div>
+        )
+        
     }
 
   return (
