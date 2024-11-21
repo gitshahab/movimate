@@ -44,8 +44,8 @@ export const MovieDetail = () => {
     <main>
       {loading ? (<MovDetailSkeleton/>) : (
         <div>
-        <section className="flex justify-center my-7 ">
-        <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800">
+        <section className="flex justify-center my-7 pt-12">
+        <div className="flex flex-col items-center bg-slate-50 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-slate-700">
           <img className="object-cover w-full rounded-t-lg h-full md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={image} alt="poster" />
           <div className="flex flex-col justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{movie.title}</h5>
@@ -80,7 +80,7 @@ export const MovieDetail = () => {
         </div>
       </section>
       <section className="flex justify-center my-3">
-        <div className="max-w-base my-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="max-w-base my-7 p-6 bg-slate-50 border border-gray-200 rounded-lg shadow dark:bg-slate-700 dark:border-gray-700">
             <h5 className="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">Overview</h5>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{movie.overview}</p>
         </div>

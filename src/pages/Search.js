@@ -23,18 +23,18 @@ export const Search = ({apiPath}) => {
 
   return (
     <main>
-        <section className='py-2 flex justify-center text-2xl text-gray-700 font-bold my-7 dark:text-white'>
-            <p>{movies.length === 0 ? (
-                <div><PageNotFound img={ResultNotFound} msg={`No Result Found for '${queryTerm}'`} /></div>) : `Result For '${queryTerm}'`}
-            </p>
-        </section>
         <section className='max-w-7xl mx-auto py-7'>
-            <div className='flex justify-center flex-wrap'>
+            <div className='flex justify-center flex-wrap pt-10'>
                 { loading ? (<SkeletonPage/>) : ( movies.map((movie) => (
                     <Card key={movie.id} movie={movie} />
                 ))
                 )}
             </div>
+        </section>
+        <section className='py-2 flex justify-center text-2xl text-gray-700 font-bold my-7 dark:text-white'>
+            <span>{movies.length === 0 && (
+                <div><PageNotFound img={ResultNotFound} msg={`No Result Found for '${queryTerm}'`} /></div>)}
+            </span>
         </section>
     </main>
   );

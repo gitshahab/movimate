@@ -28,7 +28,7 @@ export const Card = ({movie}) => {
         const star = []
         for(let i = 1; i <= 5; i++){
             star.push(
-                <svg className={`w-4 h-4 ${ratings >= i ? "text-yellow-300" : "text-grey-300"}`}
+                <svg className={`w-4 h-4 ${ratings >= i ? "text-yellow-300" : "text-slate-300"}`}
                     key={i}
                     aria-hidden="true" 
                     xmlns="http://www.w3.org/2000/svg" 
@@ -42,7 +42,7 @@ export const Card = ({movie}) => {
     }
 
   return (
-        <div className="m-3 w-full max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="m-3 w-full max-w-60 bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-slate-700 dark:border-gray-700">
             <Link to={`/movie/${id}`}>
                 <img className="rounded-t-lg" src={image} alt="product" />
             </Link>
