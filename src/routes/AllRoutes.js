@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { MovieList, MovieDetail, Search, PageNotFound } from "../pages";
 import PageNotFoundImg  from "../assets/404-page-not-found.svg";
 import { useState } from "react";
+import { Favorite } from "../pages/Favorite";
 
 export const AllRoutes = () => {
   const [nowPlayingPage, setNowPlayingPage] = useState(1);
@@ -16,6 +17,7 @@ export const AllRoutes = () => {
             <Route path="movie/popular" element={<MovieList apiPath="movie/popular" pageNum={popularPage} setPageNum={setPopularPage} title="Popular"/>} />
             <Route path="movie/top_rated" element={<MovieList apiPath="movie/top_rated" pageNum={topRatedPage} setPageNum={setTopRatedPage} title="Top Rated"/>} />
             <Route path="movie/upcoming" element={<MovieList apiPath="movie/upcoming" pageNum={upcomingPage} setPageNum={setUpcomingPage} title="Upcoming"/>} />
+            <Route path="movie/favorite" element={<Favorite/>} />
             <Route path="search" element={<Search apiPath="search/movie"/>} />
             <Route path="*" element={<PageNotFound msg="404, Oops Page Not Found" img={PageNotFoundImg} />} />
         </Routes>

@@ -2,11 +2,14 @@ import { Card, NextPage } from '../components';
 import { useFetch } from '../hooks/useFetch';
 import { useEffect } from 'react';
 import { SkeletonPage } from './SkeletonPage';
+import { Banner } from '../components/Banner';
 
 
 
 export const MovieList = ({apiPath, pageNum, setPageNum, title}) => {
     const { data : Movies, loading, error } = useFetch({apiPath, page: pageNum});
+
+
     useEffect(() => {
         document.title = `${title}/Movimate`;
     });
@@ -27,21 +30,25 @@ export const MovieList = ({apiPath, pageNum, setPageNum, title}) => {
     }
 
   return (
-    <main>
-        <section className='max-w-7xl mx-auto py-7 pt-16'>
-            <div className='flex justify-center flex-wrap'>
-                { loading ? (
-                    <SkeletonPage/>
-                ) : (
-                    Movies.map((movie) => (
-                    <Card key={movie.id} movie={movie} />
-                    ))
-                )}
-            </div>
-        </section>
-        <section className='flex justify-center mb-10'>
-            {!loading && <NextPage onPageChange={handlePageChange}/>}
-        </section>
-    </main>
+    <>
+    <div>
+        <Banner movieId={Movies.length ? Movies[6].id : null} />
+    </div>
+
+    <section className='max-w-7xl mx-auto py-7 pt-16'>
+        <div className='flex justify-center flex-wrap'>
+        { loading ? (
+        <SkeletonPage/>
+        ) : 
+        (Movies.map((movie) => (
+            <Card key={movie.id} movie={movie} />
+        )))}   
+        </div>
+    </section>
+    {!loading && <section className='flex justify-center pb-10'>
+        <NextPage onPageChange={handlePageChange}/>
+    </section>}
+    
+    </>
   );
 }

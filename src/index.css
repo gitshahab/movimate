@@ -8,3 +8,11 @@ main {
   min-height: 90vh;
   padding: 10px;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}

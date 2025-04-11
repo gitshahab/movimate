@@ -1,13 +1,28 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import moment from "moment";
-import defaultImage from "../assets/default-movie-background.jpg"
+import defaultImage from "../assets/default-movie-background.jpg";
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
+import { useFav } from '../context/FavContext';
+
 
 export const Card = ({movie}) => {
     const {id, title, release_date, poster_path, vote_average} = movie;
     const image = poster_path ?`https://image.tmdb.org/t/p/w500/${poster_path}` : defaultImage ;
     const date = new Date(release_date);
     const formatedReleaseDate = moment(date).format('MMMM D, YYYY'); 
+
+    const { fav, dispatch } = useFav();
+    const isFav = fav.some(favMovie => favMovie.id === movie.id);
+
+    const handleFav = () => {
+        if(isFav) {
+            dispatch({ type: "REMOVE_FAV", payload: { id }});
+        } else {
+            dispatch({ type: "ADD_FAV", payload: movie });
+        }
+    }
 
     let rate = 0.0;
     if(vote_average < 5.0){
@@ -28,7 +43,7 @@ export const Card = ({movie}) => {
         const star = []
         for(let i = 1; i <= 5; i++){
             star.push(
-                <svg className={`w-4 h-4 ${ratings >= i ? "text-yellow-300" : "text-slate-300"}`}
+                <svg className={`w-4 ${ratings >= i ? "text-yellow-300" : "text-slate-300"}`}
                     key={i}
                     aria-hidden="true" 
                     xmlns="http://www.w3.org/2000/svg" 
@@ -42,22 +57,37 @@ export const Card = ({movie}) => {
     }
 
   return (
-        <div className="m-3 w-full max-w-60 bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-slate-700 dark:border-gray-700">
-            <Link to={`/movie/${id}`}>
-                <img className="rounded-t-lg" src={image} alt="product" />
-            </Link>
-            <div className="px-5 pb-5">
+        <div className="m-3 w-full max-w-32 md:max-w-52 bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-slate-700 dark:border-gray-700">
+            <div className='relative rounded-t-lg overflow-hidden'>
+                <Link to={`/movie/${id}`}>
+                    <img className="hover:scale-105 transition-transform duration-300 ease-in-out" src={image} alt="product" />
+                </Link>
+                <button onClick={handleFav} className='absolute top-0 left-0 cursor-pointer hover:scale-125 ease-in-out duration-200 text-zinc-200 text-2xl md:text-4xl'>
+                    {!isFav ? <BookmarkAddIcon fontSize='inherit'  sx={{
+                        stroke: "black",          
+                        strokeWidth: 1,
+                    }}
+                    />
+                    : <BookmarkRemoveIcon fontSize='inherit'  sx={{
+                        stroke: "black",          
+                        strokeWidth: 1,
+                    }}
+                    />
+                    }
+                </button>
+            </div>
+            <div className="px-2 md:px-5 mb-2 md:pb-5">
                 <div className="flex items-center justify-between mt-2">
-                    <span className="text-2xl font-bold text-gray-900 dark:text-white">{title}</span>
+                    <span className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">{title}</span>
                 </div>
 
-                <div className="flex items-center mt-2.5 mb-5">
+                <div className="flex flex-col md:flex-row gap-2 mt-2.5 mb-5">
                     <div className="flex items-center space-x-1 rtl:space-x-reverse">
                         {renderStars()}
                     </div>
-                    <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">{ratings.toFixed(1)}</span>
+                    <span className="w-fit bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 md:ms-3">{ratings.toFixed(1)}</span>
                 </div>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{formatedReleaseDate}</p>   
+                <p className="mb-3 text-sm md:text-lg font-normal text-gray-700 dark:text-gray-400">{formatedReleaseDate}</p>   
             </div>
         </div>
   );
