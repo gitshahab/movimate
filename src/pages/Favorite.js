@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { Card } from '../components/Card';
 import { useFav } from '../context/FavContext';
+import { useLoading } from '../context/LoadingContext';
 
 export const Favorite = () => {
     const { fav } = useFav();
+    const { completeLoading } = useLoading();
 
-    useEffect(() => {
+    useEffect(() => {      
       document.title = "Favorite/Movimate";
-    } ,[]);
+      completeLoading();
+    });
+
   return (
     <section className='min-h-screen max-w-7xl mx-auto py-7 pt-20'>
       {fav.length > 0 ? 
